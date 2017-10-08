@@ -87,18 +87,28 @@ class Drawer {
     let diffX
     let diffY
     if (dx > dy) {
-      diffX = 1
-      diffY = dy / dx
+      diffX = Math.sign(x2 - x1)
+      diffY = Math.sign(y2 - y1) * dy / dx
     } else {
-      diffX = dx / dy
-      diffY = 1
+      diffX = Math.sign(x2 - x1) * dx / dy
+      diffY = Math.sign(y2 - y1)
     }
-    while (currentY <= y2 && currentX <= x2) {
+    let signX = Math.sign(x2 - currentX)
+    let signY = Math.sign(y2 - currentY)
+    let nextSignX = Math.sign(x2 - currentX - diffX)
+    let nextSignY = Math.sign(y2 - currentY - diffY)
+    while (currentY * signY <= y2 * signY && currentX * signX <= x2 * signX
+    && (Math.sign(y2 - currentY) === signY || Math.sign(y2 - currentY) === 0)
+    && (Math.sign(x2 - currentX) === signX || Math.sign(x2 - currentX) === 0)) {
       this.setSquares([{
         x: Math.round(currentX) - 0.5,
         y: Math.round(currentY) - 0.5
       }])
-      if (Math.round(currentX + diffX) <= x2 && Math.round(currentY + diffY) <= y2) {
+
+      if (Math.round(currentX + diffX) * nextSignX <= x2 * nextSignX
+        && Math.round(currentY + diffY) * nextSignY <= y2 * nextSignY
+        && (Math.sign(y2 - currentY - diffY) === nextSignY || Math.sign(y2 - currentY - diffY) === 0)
+        && (Math.sign(x2 - currentX - diffX) === nextSignX || Math.sign(x2 - currentX - diffX) === 0)) {
         lines.push({
           x1: Math.round(currentX),
           y1: Math.round(currentY),
