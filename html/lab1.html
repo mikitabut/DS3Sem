@@ -8,13 +8,13 @@
       var drawer;
       function draw () {
         if(typeof drawer === 'undefined') {
-          drawer = new Drawer('myCanvas')
+          drawer = new Drawer('diffCanvas','brezenhemCanvas')
         }
         drawer.draw(parseInt(document.getElementById('x1').value),
           parseInt(document.getElementById('y1').value),
           parseInt(document.getElementById('x2').value),
           parseInt(document.getElementById('y2').value),
-          20, 20)
+          40, 40)
 
       }
 
@@ -29,7 +29,12 @@
     <button onclick="draw()">Draw</button>
 </p>
 <p>
-    <canvas id="myCanvas" width="1000" height="800">
+    <canvas id="diffCanvas" width="1000" height="800">
+
+    </canvas>
+</p>
+<p>
+    <canvas id="brezenhemCanvas" width="1000" height="800">
 
     </canvas>
 </p>
